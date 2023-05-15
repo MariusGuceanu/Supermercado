@@ -13,6 +13,7 @@ public class ModeloProducto {
 	public ArrayList<Producto> getProductos() throws SQLException {
 		ArrayList<Producto> productos = new ArrayList<>();
 		Conector conector = new Conector();
+		ModeloSeccion ms = new ModeloSeccion();
 		conector.conectar();
 
 		PreparedStatement pSt = conector.getCon().prepareStatement("SELECT * FROM productos");
@@ -26,7 +27,7 @@ public class ModeloProducto {
 			pr.setCantidad(resultado.getInt("cantidad"));
 			pr.setPrecio(resultado.getDouble("precio"));
 			pr.setCaducidad(resultado.getDate("caducidad"));
-
+			pr.setSeccion(ms.getSeccion(resultado.getInt("id_seccion")));
 			productos.add(pr);
 		}
 		pSt.close();

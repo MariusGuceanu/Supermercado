@@ -18,6 +18,7 @@
 			<td>Cantidad</td>
 			<td>Precio</td>
 			<td>Caducidad</td>
+			<td>Seccion</td>
 		</tr>
 		
 		<c:forEach items="${productos}" var="producto">
@@ -28,6 +29,7 @@
 			<td>${producto.cantidad}</td>
 			<td>${producto.precio}</td>
 			<td>${producto.caducidad}</td>
+			<td>${producto.seccion.nombre}</td>
 		</tr>
 		</c:forEach>
 		</table>
