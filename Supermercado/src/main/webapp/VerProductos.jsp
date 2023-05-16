@@ -33,5 +33,9 @@
 		</tr>
 		</c:forEach>
 		</table>
+		
+		<a href="InsertarForm.jsp">
+		<button>Insertar</button>
+		</a>
 </body>
 </html>

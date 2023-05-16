@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ModeloDAO.*;
 import ModeloDTO.*;
@@ -33,6 +34,25 @@ public class ModeloProducto {
 		pSt.close();
 		conector.cerrar();
 		return productos;
+
+	}
+	
+	public void insertarProducto(Producto producto){
+		try {
+			Conector conector = new Conector();
+			conector.conectar();
+
+			PreparedStatement pSt = conector.getCon().prepareStatement("INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad,) Values (?,?,?,?,?)");
+			pSt.setString(1, producto.getCodigo());;
+			pSt.setString(2, producto.getNombre());
+			pSt.setInt(3, producto.getCantidad());
+			pSt.setDouble(4, producto.getPrecio());
+			pSt.setDate(5, (java.sql.Date) new Date(producto.getCaducidad().getTime()));			
+			pSt.execute();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 
 	}
 }
