@@ -13,25 +13,42 @@
 	<form action="ModificarProducto" method="POST">
 		<input type="text" value="${producto.id}" hidden="hidden" name="id">
 
-		<label for="codigo">codigo</label> <input type="text" name="codigo"
-			value="${producto.codigo}"> <label for="codigo">Codigo</label>
-		<input type="text" name="codigo" value="${producto.codigo}"> <br>
-		<label for="nombre">Nombre</label> <input type="text" name="nombre"
-			value="${producto.nombre}"> <label for="nombre">Nombre</label>
-		<input type="text" name="nombre" value="${producto.nombre}"> <br>
-		<label for="cantidad">Cantidad</label> <input type="text"
-			name="cantidad" value="${producto.cantidad}"> <label
-			for="cantidad">Cantidad</label> <input type="text" name="cantidad"
-			value="${producto.cantidad}"> <br> <label for="precio">Precio</label>
-		<input type="text" name="precio" value="${producto.precio}"> <label
-			for="precio">Precio</label> <input type="text" name="precio"
-			value="${producto.precio}"> <br> <label for="caducidad">Caducidad</label>
-		<input type="date" name="caducidad"> <select name="seccion">
-			<option selected="selected"></option>
+		<label for="codigo">Codigo</label>
+		 <input type="text" name="codigo"
+			value="${producto.codigo}">
+			
+				
+		<label for="nombre">Nombre</label>
+		 <input type="text" name="nombre"
+			value="${producto.nombre}">
+			 
+		
+		<label for="cantidad">Cantidad</label> 
+		<input type="text"
+			name="cantidad" value="${producto.cantidad}"> 
+			
+			 <br>
+		<label for="precio">Precio</label>
+			 <input type="text" name="precio"
+			value="${producto.precio}"> 
+			<br>
+			 <label for="caducidad">Caducidad</label>
+		<input type="date" name="caducidad" value="${producto.caducidad}">
+		
+		 <select name="seccion">
 			<c:forEach items="${secciones}" var="seccion">
-				<option value="${seccion.id}">${seccion.nombre}</option>
+				<c:if test="${seccion.id==producto.seccion.id}">
+					<option selected="selected" value="${seccion.id}">${seccion.nombre}</option>
+				</c:if>
+				<c:if test="${seccion.id!=producto.seccion.id}">
+					<option value="${seccion.id}">${seccion.nombre}</option>
+				</c:if>
 			</c:forEach>
 		</select> 
+		
+		<br>
+		<input type="submit" value="modificar"> 
+		
 	</form>
 	<form action="VerUsuarios">
 		<input type="submit" value="volver">

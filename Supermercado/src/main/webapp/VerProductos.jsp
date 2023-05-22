@@ -39,7 +39,7 @@
 				<td>${producto.precio}</td>
 				<td>${producto.caducidad}</td>
 				<td>${producto.seccion.nombre}</td>
-				<td><a href="ModificarProducto?id=${usuario.id}">Modificar Producto</a></td>
+				<td><a href="ModificarProducto?id=${producto.id}">Modificar Producto</a></td>
 			</tr>
 		</c:forEach>
 	</table>

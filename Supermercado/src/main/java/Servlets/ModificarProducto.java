@@ -35,8 +35,8 @@ public class ModificarProducto extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		request.setAttribute("producto", ModeloProducto.getProducto(request.getParameter("id")));
+		request.setAttribute("secciones", ModeloSeccion.getSecciones());
 		request.getRequestDispatcher("ModificarForm.jsp").forward(request, response);
 	}
 
@@ -68,9 +68,11 @@ public class ModificarProducto extends HttpServlet {
 		pr.setPrecio(precio);
 		pr.setCaducidad(caducidad);
 		Seccion seccion = ModeloSeccion.getSeccion(Integer.parseInt(request.getParameter("seccion")));
+		pr.setSeccion(seccion);
 		
 		mp.modificarProducto(pr);
 
-		response.sendRedirect(request.getContextPath() + "/VerUsuarios");	}
+		response.sendRedirect("VerProductos");	
+		}
 
 }
