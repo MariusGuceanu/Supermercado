@@ -118,5 +118,6 @@ public class ModeloProducto {
 		conector.cerrar();
 		return pr;
 
+			
 	}
 }

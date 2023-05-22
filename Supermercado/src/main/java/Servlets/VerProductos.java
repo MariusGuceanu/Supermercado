@@ -49,7 +49,25 @@ public class VerProductos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		String busqueda = request.getParameter("codigo");
+		
+		ModeloProducto mp = new ModeloProducto();
+		ArrayList<Producto> productos = null;
+		try {
+			 productos = mp.getProductos();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		ArrayList<Producto> productosB = new ArrayList<Producto>();
+		for (Producto producto : productos) {
+			if (producto.getCodigo().contains(busqueda)) {
+				productosB.add(producto);
+			}
+		}
+		
+		request.setAttribute("productos", productosB);
+		request.getRequestDispatcher("VerProductos.jsp").forward(request, response);
+
 	}
 }

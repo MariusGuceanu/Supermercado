@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<form style="margin-left: 5%;" action="buscarProducto">
+	<form style="margin-left: 5%;" action="VerProductos" method="POST">
 		<label for="codigo">Introduzca el codigo</label> <input type="text"
 			name="codigo"> <input type="submit" value="enviar">
 	</form>
