@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import ModeloDAO.Conector;
 import ModeloDAO.ModeloProducto;
+import ModeloDAO.ModeloSeccion;
 import ModeloDTO.Producto;
+import ModeloDTO.Seccion;
 
 /**
  * Servlet implementation class InsertarProducto
@@ -35,6 +37,7 @@ public class InsertarProducto extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setAttribute("secciones", ModeloSeccion.getSecciones());
 		request.getRequestDispatcher("InsertarForm.jsp").forward(request, response);
 	}
 
@@ -60,6 +63,7 @@ public class InsertarProducto extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		int id_seccion = Integer.parseInt(request.getParameter("seccion"));
 		Producto pr = new Producto();
 
 		pr.setCodigo(codigo);
@@ -67,6 +71,8 @@ public class InsertarProducto extends HttpServlet {
 		pr.setCantidad(cantidad);
 		pr.setPrecio(precio);
 		pr.setCaducidad(caducidad);
+		Seccion seccion = ModeloSeccion.getSeccion(Integer.parseInt(request.getParameter("seccion")));
+		pr.setSeccion(seccion);
 		mp.insertarProducto(pr);
 
 	}
