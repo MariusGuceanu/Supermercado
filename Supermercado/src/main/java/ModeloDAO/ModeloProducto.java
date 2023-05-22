@@ -86,4 +86,34 @@ public class ModeloProducto {
 		}
 		
 	}
+	
+	public static Producto getProducto(String id) {
+
+		String sql = "select * from productos where id=?";
+		Conector conector = new Conector();
+		ModeloSeccion ms = new ModeloSeccion();
+		conector.conectar();
+		PreparedStatement pSt;
+		Producto pr = new Producto();
+		try {
+			pSt = conector.getCon().prepareStatement(sql);
+			pSt.setString(1, id);
+			ResultSet resultado = pSt.executeQuery();
+			resultado.next();
+			pr.setCodigo(resultado.getString("codigo"));
+			pr.setNombre(resultado.getString("nombre"));
+			pr.setCantidad(resultado.getInt("cantidad"));
+			pr.setPrecio(resultado.getDouble("precio"));
+			pr.setCaducidad(resultado.getDate("caducidad"));
+			pr.setSeccion(ms.getSeccion(resultado.getInt("id_seccion")));
+			
+			pSt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		conector.cerrar();
+		return pr;
+
+	}
 }

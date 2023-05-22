@@ -79,9 +79,9 @@ public class InsertarProducto extends HttpServlet {
 		} else if (pr.getSeccion().getId() == 0) {
 			request.setAttribute("mensaje", "Id seccion incorrecto");
 			doGet(request, response);
-//		}else if (pr.getCaducidad().before(new Date())) {
-//				request.setAttribute("mensaje", "La fecha no puede ser anterior a la actual");
-//				doGet(request, response);
+		}else if (new java.util.Date().after(caducidad)) {
+				request.setAttribute("mensaje", "La fecha no puede ser anterior a la actual");
+				doGet(request, response);
 		} else {
 			mp.insertarProducto(pr);
 		}
