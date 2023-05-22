@@ -50,7 +50,6 @@ public class InsertarProducto extends HttpServlet {
 
 		doGet(request, response);
 		ModeloProducto mp = new ModeloProducto();
-		
 
 		String codigo = request.getParameter("codigo");
 		String nombre = request.getParameter("nombre");
@@ -73,9 +72,18 @@ public class InsertarProducto extends HttpServlet {
 		pr.setCaducidad(caducidad);
 		Seccion seccion = ModeloSeccion.getSeccion(Integer.parseInt(request.getParameter("seccion")));
 		pr.setSeccion(seccion);
-		mp.insertarProducto(pr);
 
+		if (pr.getPrecio() < 0 || pr.getCantidad() < 0) {
+			request.setAttribute("mensaje", "El precio o cantidad incorrecta");
+			doGet(request, response);
+		} else if (pr.getSeccion().getId() == 0) {
+			request.setAttribute("mensaje", "Id seccion incorrecto");
+			doGet(request, response);
+//		}else if (pr.getCaducidad().before(new Date())) {
+//				request.setAttribute("mensaje", "La fecha no puede ser anterior a la actual");
+//				doGet(request, response);
+		} else {
+			mp.insertarProducto(pr);
+		}
 	}
-	
-
 }
