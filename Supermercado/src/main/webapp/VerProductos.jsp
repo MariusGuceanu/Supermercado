@@ -34,7 +34,7 @@
 		</c:forEach>
 		</table>
 		
-		<a href="InsertarForm.jsp">
+		<a href="InsertarProducto">
 		<button>Insertar</button>
 		</a>
 </body>

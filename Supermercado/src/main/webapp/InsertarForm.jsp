@@ -10,7 +10,7 @@
 
 		<form  method="POST" action="InsertarProducto">
         <label for="codigo">Codigo</label>
-        <input type="text" name="nombre">
+        <input type="text" name="codigo">
         <br> <br>
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre">
@@ -23,8 +23,11 @@
         <br><br>
          <label for="caducidad">caducidad</label>
         <input type="date" name="caducidad">
-        <br><br>
-        <input type="submit" value="Enviar">
+        <br><br>            
+        <input type="submit" value="enviar">
+    </form>
+    <form action="VerProductos">
+            <input type="submit" value="volver">
     </form>
 </body>
 </html>

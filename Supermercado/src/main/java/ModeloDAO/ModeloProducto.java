@@ -36,19 +36,24 @@ public class ModeloProducto {
 		return productos;
 
 	}
-	
-	public void insertarProducto(Producto producto){
+
+	public void insertarProducto(Producto producto) {
 		try {
 			Conector conector = new Conector();
 			conector.conectar();
 
-			PreparedStatement pSt = conector.getCon().prepareStatement("INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad,) Values (?,?,?,?,?)");
-			pSt.setString(1, producto.getCodigo());;
+			PreparedStatement pSt = conector.getCon().prepareStatement(
+					"INSERT INTO productos (codigo, nombre, cantidad, precio, caducidad) Values (?,?,?,?,?)");
+			pSt.setString(1, producto.getCodigo());
 			pSt.setString(2, producto.getNombre());
 			pSt.setInt(3, producto.getCantidad());
 			pSt.setDouble(4, producto.getPrecio());
-			pSt.setDate(5, (java.sql.Date) new Date(producto.getCaducidad().getTime()));			
+			pSt.setDate(5, new java.sql.Date(producto.getCaducidad().getTime()));
+
 			pSt.execute();
+
+			conector.cerrar();
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
