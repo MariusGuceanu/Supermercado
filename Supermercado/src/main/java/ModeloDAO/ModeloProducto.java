@@ -15,6 +15,7 @@ public class ModeloProducto {
 		ArrayList<Producto> productos = new ArrayList<>();
 		Conector conector = new Conector();
 		ModeloSeccion ms = new ModeloSeccion();
+		ModeloSupermercado msp = new ModeloSupermercado();
 		conector.conectar();
 
 		PreparedStatement pSt = conector.getCon().prepareStatement("SELECT * FROM productos");
@@ -50,7 +51,6 @@ public class ModeloProducto {
 			pSt.setDouble(4, producto.getPrecio());
 			pSt.setDate(5, new java.sql.Date(producto.getCaducidad().getTime()));
 			pSt.setInt(6, producto.getSeccion().getId());
-
 			pSt.execute();
 
 			conector.cerrar();

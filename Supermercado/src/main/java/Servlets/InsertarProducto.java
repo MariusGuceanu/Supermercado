@@ -13,8 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ModeloDAO.Conector;
 import ModeloDAO.ModeloProducto;
 import ModeloDAO.ModeloSeccion;
-import ModeloDTO.Producto;
-import ModeloDTO.Seccion;
+import ModeloDTO.*;
 
 /**
  * Servlet implementation class InsertarProducto
@@ -63,6 +62,8 @@ public class InsertarProducto extends HttpServlet {
 			// TODO: handle exception
 		}
 		int id_seccion = Integer.parseInt(request.getParameter("seccion"));
+		int id_supermercado = Integer.parseInt(request.getParameter("supermercado"));
+		
 		Producto pr = new Producto();
 
 		pr.setCodigo(codigo);

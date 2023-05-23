@@ -31,6 +31,11 @@
 				<option value="${seccion.id}">${seccion.nombre}</option>
 			</c:forEach>
 		</select>
+		<br><br>
+		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
+		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
+		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
+		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
         <br><br>            
         <input type="submit" value="enviar">
     </form>

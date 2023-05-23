@@ -11,8 +11,17 @@ public class Producto {
 	private double precio;
 	private Date caducidad;
 	private Seccion seccion;
+	private Supermercado supermercado;
 
 	
+	public Supermercado getSupermercado() {
+		return supermercado;
+	}
+
+	public void setSupermercado(Supermercado supermercado) {
+		this.supermercado = supermercado;
+	}
+
 	public Seccion getSeccion() {
 		return seccion;
 	}
