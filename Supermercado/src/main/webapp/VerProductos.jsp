@@ -10,11 +10,11 @@
 </head>
 <body>
 
-	<form style="margin-left: 5%;" action="buscarProducto">
-		<label for="codigo">Introduzca el codigo para buscar</label> 
-		<input type="text" name="codigo"> 
-		<input type="submit" value="enviar">
+	<form style="margin-left: 5%;" action="VerProductos" method="POST">
+		<label for="codigo">Introduzca el codigo</label> <input type="text"
+			name="codigo"> <input type="submit" value="enviar">
 	</form>
+	
 	
 
 	<br>
@@ -41,7 +41,7 @@
 				<td>${producto.precio}</td>
 				<td>${producto.caducidad}</td>
 				<td>${producto.seccion.nombre}</td>
-				<td><a href="ModificarProducto?id=${usuario.id}">Modificar Producto</a></td>
+				<td><a href="ModificarProducto?id=${producto.id}">Modificar Producto</a></td>
 			</tr>
 		</c:forEach>
 	</table>

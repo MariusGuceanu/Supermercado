@@ -61,13 +61,13 @@ public class ModeloProducto {
 		}
 
 	}
-	
+
 	public void modificarProducto(Producto producto) {
 		try {
 			Conector conector = new Conector();
 			conector.conectar();
-			String sql = "UPDATE productos SET codigo = ?, nombre=?, cantidad=?, precio=?, caducidad=?, id_seccion WHERE id = ? ";
-			
+			String sql = "UPDATE productos SET codigo = ?, nombre=?, cantidad=?, precio=?, caducidad=?, id_seccion=? WHERE id = ? ";
+
 			PreparedStatement pSt = conector.getCon().prepareStatement(sql);
 			pSt.setString(1, producto.getCodigo());
 			pSt.setString(2, producto.getNombre());
@@ -78,15 +78,15 @@ public class ModeloProducto {
 			pSt.setInt(7, producto.getId());
 
 			pSt.execute();
-			
+
 			conector.cerrar();
 
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static Producto getProducto(String id) {
 
 		String sql = "select * from productos where id=?";
@@ -95,19 +95,22 @@ public class ModeloProducto {
 		conector.conectar();
 		PreparedStatement pSt;
 		Producto pr = new Producto();
+		
 		try {
 			pSt = conector.getCon().prepareStatement(sql);
 			pSt.setString(1, id);
 			ResultSet resultado = pSt.executeQuery();
 			resultado.next();
+			
+			pr.setId(resultado.getInt("id"));
 			pr.setCodigo(resultado.getString("codigo"));
 			pr.setNombre(resultado.getString("nombre"));
 			pr.setCantidad(resultado.getInt("cantidad"));
 			pr.setPrecio(resultado.getDouble("precio"));
 			pr.setCaducidad(resultado.getDate("caducidad"));
 			pr.setSeccion(ms.getSeccion(resultado.getInt("id_seccion")));
-			
 			pSt.close();
+		
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -115,5 +118,6 @@ public class ModeloProducto {
 		conector.cerrar();
 		return pr;
 
+			
 	}
 }
