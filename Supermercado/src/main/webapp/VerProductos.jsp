@@ -16,13 +16,6 @@
 		<input type="submit" value="enviar">
 	</form>
 	
-	<form action="filtrar">
-		<label for="precio_min">Precio mínimo</label>
-		<input type="text" name="precio_min">
-		<label for="precio_max">Precio máximo</label>
-		<input type="text" name="precio_max">
-		<input type="submit" value="filtrar">
-	</form>
 
 	<br>
 	<br>
