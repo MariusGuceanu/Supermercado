@@ -63,6 +63,7 @@ public class VerProductos extends HttpServlet {
 		for (Producto producto : productos) {
 			if (producto.getCodigo().contains(busqueda)) {
 				productosB.add(producto);
+				
 			}
 		}
 		
