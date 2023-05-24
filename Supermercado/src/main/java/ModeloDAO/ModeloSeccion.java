@@ -21,8 +21,8 @@ public class ModeloSeccion {
 			pSt.setInt(1, id);
 			ResultSet resultado = pSt.executeQuery();
 			resultado.next();
-			seccion.setId(resultado.getInt("id"));
-			seccion.setNombre(resultado.getString("nombre"));
+			seccion.setId(resultado.getInt(1));
+			seccion.setNombre(resultado.getString(2));
 			pSt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -120,4 +120,26 @@ public class ModeloProducto {
 
 			
 	}
+	
+	public int maxId() {
+		PreparedStatement pSt;
+		Conector conector = new Conector();
+
+
+		try {
+			conector.conectar();
+			pSt = conector.getCon().prepareStatement("SELECT MAX(id) FROM productos");
+
+			
+			ResultSet result = pSt.executeQuery();
+			result.next();
+			int maxId= result.getInt(1);
+			conector.cerrar();
+			return maxId;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+			return 0;
+		}
+	}
 }

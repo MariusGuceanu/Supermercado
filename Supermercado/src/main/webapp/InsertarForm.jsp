@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	<c:if test="${error ne null}">
+		<h1 class="alert alert-danger">${error}</h1>
+	</c:if>
 
 		<form  method="POST" action="InsertarProducto">
         <label for="codigo">Codigo</label>
@@ -32,10 +36,9 @@
 			</c:forEach>
 		</select>
 		<br><br>
-		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
-		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
-		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
-		<label><input type="checkbox" value="${supermercado.id}">${supermercado.nombre}</label>
+		<c:forEach items="${supermercados}" var="supermercado">
+				<label><input type="checkbox" value="${supermercado.id}" name="supermercados">${supermercado.nombre}</label>
+			</c:forEach>		
         <br><br>            
         <input type="submit" value="enviar">
     </form>

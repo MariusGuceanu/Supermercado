@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import ModeloDAO.Conector;
 import ModeloDAO.ModeloProducto;
 import ModeloDAO.ModeloSeccion;
+import ModeloDAO.ModeloSupermercado;
 import ModeloDTO.*;
 
 /**
@@ -37,6 +38,9 @@ public class InsertarProducto extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setAttribute("secciones", ModeloSeccion.getSecciones());
+		request.setAttribute("supermercados", ModeloSupermercado.getSupermercados());
+		String error = (String) request.getParameter("error");
+		request.setAttribute("error", error);
 		request.getRequestDispatcher("InsertarForm.jsp").forward(request, response);
 	}
 
@@ -46,9 +50,12 @@ public class InsertarProducto extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+
 
 		doGet(request, response);
 		ModeloProducto mp = new ModeloProducto();
+		ModeloSupermercado ms = new ModeloSupermercado();
 
 		String codigo = request.getParameter("codigo");
 		String nombre = request.getParameter("nombre");
@@ -61,10 +68,10 @@ public class InsertarProducto extends HttpServlet {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		int id_seccion = Integer.parseInt(request.getParameter("seccion"));
-		int id_supermercado = Integer.parseInt(request.getParameter("supermercado"));
+		String[] supermercados = request.getParameterValues("supermercados");
 		
 		Producto pr = new Producto();
+		
 
 		pr.setCodigo(codigo);
 		pr.setNombre(nombre);
@@ -73,18 +80,18 @@ public class InsertarProducto extends HttpServlet {
 		pr.setCaducidad(caducidad);
 		Seccion seccion = ModeloSeccion.getSeccion(Integer.parseInt(request.getParameter("seccion")));
 		pr.setSeccion(seccion);
+		
+		
 
 		if (pr.getPrecio() < 0 || pr.getCantidad() < 0) {
-			request.setAttribute("mensaje", "El precio o cantidad incorrecta");
-			doGet(request, response);
+			response.sendRedirect("InsertarProducto?error=Error%20hay%20datos%20que%20ya%20existen%20en%20la%20bbdd");
 		} else if (pr.getSeccion().getId() == 0) {
-			request.setAttribute("mensaje", "Id seccion incorrecto");
-			doGet(request, response);
+			response.sendRedirect("InsertarProducto?error=Error%20hay%20datos%20que%20ya%20existen%20en%20la%20bbdd");
 		}else if (new java.util.Date().after(caducidad)) {
-				request.setAttribute("mensaje", "La fecha no puede ser anterior a la actual");
-				doGet(request, response);
+			response.sendRedirect("InsertarProducto?error=Error%20hay%20datos%20que%20ya%20existen%20en%20la%20bbdd");
 		} else {
 			mp.insertarProducto(pr);
+			ms.insertarProductoSupermercado(mp.maxId(), request.getParameterValues("supermercados"));
 		}
 	}
 }
