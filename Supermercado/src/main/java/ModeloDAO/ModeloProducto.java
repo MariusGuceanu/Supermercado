@@ -4,7 +4,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import ModeloDAO.*;
 import ModeloDTO.*;
@@ -78,6 +77,7 @@ public class ModeloProducto {
 			pSt.setInt(7, producto.getId());
 
 			pSt.execute();
+			
 
 			conector.cerrar();
 

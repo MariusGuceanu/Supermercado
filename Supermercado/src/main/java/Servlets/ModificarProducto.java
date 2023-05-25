@@ -22,28 +22,32 @@ import ModeloDTO.Seccion;
 @WebServlet("/ModificarProducto")
 public class ModificarProducto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ModificarProducto() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ModificarProducto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setAttribute("producto", ModeloProducto.getProducto(request.getParameter("id")));
 		request.setAttribute("secciones", ModeloSeccion.getSecciones());
 		request.getRequestDispatcher("ModificarForm.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		ModeloProducto mp = new ModeloProducto();
 		int id = Integer.parseInt(request.getParameter("id"));
 		String codigo = request.getParameter("codigo");
@@ -55,7 +59,7 @@ public class ModificarProducto extends HttpServlet {
 		try {
 			caducidad = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("caducidad"));
 		} catch (Exception e) {
-			// TODO: handle exception
+			caducidad = null;
 		}
 		int id_seccion = Integer.parseInt(request.getParameter("seccion"));
 
@@ -69,10 +73,10 @@ public class ModificarProducto extends HttpServlet {
 		pr.setCaducidad(caducidad);
 		Seccion seccion = ModeloSeccion.getSeccion(Integer.parseInt(request.getParameter("seccion")));
 		pr.setSeccion(seccion);
-		
+
 		mp.modificarProducto(pr);
 
-		response.sendRedirect("VerProductos");	
-		}
+		response.sendRedirect("VerProductos");
+	}
 
 }
