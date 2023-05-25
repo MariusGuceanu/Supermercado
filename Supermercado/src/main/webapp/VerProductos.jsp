@@ -34,6 +34,7 @@
 			<td>Caducidad</td>
 			<td>Seccion</td>
 			<td>Modificar</td>
+			<td>Eliminar</td>
 		</tr>
 
 		<c:forEach items="${productos}" var="producto">
@@ -46,6 +47,7 @@
 				<td>${producto.caducidad}</td>
 				<td>${producto.seccion.nombre}</td>
 				<td><a href="ModificarProducto?id=${producto.id}">Modificar Producto</a></td>
+				<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
 			</tr>
 		</c:forEach>
 	</table>

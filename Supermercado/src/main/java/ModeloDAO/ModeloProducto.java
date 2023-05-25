@@ -142,4 +142,82 @@ public class ModeloProducto {
 			return 0;
 		}
 	}
+	
+	public static void eliminarProducto(String id) {
+		Conector conector = new Conector();
+		String sentencia = "update productos set cantidad=cantidad-1 where id=?";
+		String sentencia2 ="delete from productos_supermercados where id_producto=?";
+		String sentencia3 ="delete from productos where id=?";
+
+		conector.conectar();
+
+		if (getCantidad(id) > 0) {
+			try {
+				PreparedStatement st = conector.getCon().prepareStatement(sentencia);
+				st.setString(1, id);
+				st.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if (getProductosSupermercados(id)) {
+			try {
+				PreparedStatement st = conector.getCon()
+						.prepareStatement(sentencia2);
+				st.setString(1, id);
+				st.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				PreparedStatement st = conector.getCon().prepareStatement(sentencia3);
+				st.setString(1, id);
+				st.execute();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		conector.cerrar();
+	}
+	
+	protected static int getCantidad(String id) {
+		Conector conector = new Conector();
+		int cantidad = 0;
+		conector.conectar();
+
+		try {
+			PreparedStatement st = conector.getCon().prepareStatement("select cantidad from productos where id = ?");
+			st.setString(1, id);
+			ResultSet resultado = st.executeQuery();
+			resultado.next();
+			cantidad = resultado.getInt(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		conector.cerrar();
+		return cantidad;
+	}
+	private static boolean getProductosSupermercados(String id) {
+		
+		Conector conector = new Conector();
+		conector.conectar();
+
+		boolean existe = false;
+		String sentencia = "select * from productos_supermercados where id = ?";
+
+		try {
+			PreparedStatement st = conector.getCon().prepareStatement(sentencia);
+			st.setString(1, id);
+			ResultSet r = st.executeQuery();
+			if (r.next()) {
+				existe = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		conector.cerrar();
+		return existe;
+	}
 }
