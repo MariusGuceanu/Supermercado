@@ -10,7 +10,7 @@ import ModeloDTO.*;
 
 public class ModeloProducto {
 
-	public ArrayList<Producto> getProductos() throws SQLException {
+	public static ArrayList<Producto> getProductos() throws SQLException {
 		ArrayList<Producto> productos = new ArrayList<>();
 		Conector conector = new Conector();
 		ModeloSeccion ms = new ModeloSeccion();
@@ -153,26 +153,26 @@ public class ModeloProducto {
 
 		if (getCantidad(id) > 0) {
 			try {
-				PreparedStatement st = conector.getCon().prepareStatement(sentencia);
-				st.setString(1, id);
-				st.executeUpdate();
+				PreparedStatement pst = conector.getCon().prepareStatement(sentencia);
+				pst.setString(1, id);
+				pst.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else if (getProductosSupermercados(id)) {
 			try {
-				PreparedStatement st = conector.getCon()
+				PreparedStatement pst = conector.getCon()
 						.prepareStatement(sentencia2);
-				st.setString(1, id);
-				st.execute();
+				pst.setString(1, id);
+				pst.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				PreparedStatement st = conector.getCon().prepareStatement(sentencia3);
-				st.setString(1, id);
-				st.execute();
+				PreparedStatement pt = conector.getCon().prepareStatement(sentencia3);
+				pt.setString(1, id);
+				pt.execute();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -187,9 +187,9 @@ public class ModeloProducto {
 		conector.conectar();
 
 		try {
-			PreparedStatement st = conector.getCon().prepareStatement("select cantidad from productos where id = ?");
-			st.setString(1, id);
-			ResultSet resultado = st.executeQuery();
+			PreparedStatement pst = conector.getCon().prepareStatement("select cantidad from productos where id = ?");
+			pst.setString(1, id);
+			ResultSet resultado = pst.executeQuery();
 			resultado.next();
 			cantidad = resultado.getInt(1);
 		} catch (Exception e) {
@@ -207,9 +207,9 @@ public class ModeloProducto {
 		String sentencia = "select * from productos_supermercados where id = ?";
 
 		try {
-			PreparedStatement st = conector.getCon().prepareStatement(sentencia);
-			st.setString(1, id);
-			ResultSet r = st.executeQuery();
+			PreparedStatement pst = conector.getCon().prepareStatement(sentencia);
+			pst.setString(1, id);
+			ResultSet r = pst.executeQuery();
 			if (r.next()) {
 				existe = true;
 			}
@@ -219,5 +219,35 @@ public class ModeloProducto {
 		}
 		conector.cerrar();
 		return existe;
+	}
+	
+	public void borrarMultiple(String[] codigos) {
+		Conector conector = new Conector();
+		conector.conectar();
+		try {
+			PreparedStatement pst = conector.getCon()
+					.prepareStatement("delete from productos where codigo=?");
+			for(String codigo:codigos) {
+				pst.setString(1, codigo);
+				pst.execute();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		conector.cerrar();
+	}
+	
+	public static void borrarCompleto(int id_producto) {
+		Conector conector = new Conector();
+		conector.conectar();
+		String sql = "delete from productos where id=?";
+		
+		try {
+			PreparedStatement pSt= conector.getCon().prepareStatement(sql);
+			pSt .setInt(1, id_producto);
+			pSt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

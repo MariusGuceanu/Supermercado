@@ -20,9 +20,16 @@
 		<input type="text" name="min" placeholder="Precio minimo">
 		<input type="Submit" value="Filtrar por precios">
 	</form>
+	
+	<form action="EliminarMultiple" method="GET">
+	<label>Introduzca codigos separados por comas para borrar varios productos</label>
+		<input type="text" name="codigos">
+		<input type="submit" value="Eliminar ID's">
+	</form>
 
 	<br>
 	<br>
+	<form method="post" action="EliminarCompleto">
 	<table style="margin-left: 5%;">
 
 		<tr>
@@ -35,6 +42,7 @@
 			<td>Seccion</td>
 			<td>Modificar</td>
 			<td>Eliminar</td>
+			<td>Eliminar Completamente</td>
 		</tr>
 
 		<c:forEach items="${productos}" var="producto">
@@ -48,13 +56,18 @@
 				<td>${producto.seccion.nombre}</td>
 				<td><a href="ModificarProducto?id=${producto.id}">Modificar Producto</a></td>
 				<td><a href="EliminarProducto?id=${producto.id}">Eliminar</a></td>
+				<td><input type="checkbox" value="${producto.id}" name="idsproductos">Eliminar Completamente</td>
 			</tr>
 		</c:forEach>
 	</table>
 
 	<br>
+		<input type="submit" value="EliminarCompleto">
+	</form>
+	<br>
 	<a style="margin-left: 5%;" href="InsertarProducto">
 		<button>Insertar</button>
 	</a>
+	
 </body>
 </html>
